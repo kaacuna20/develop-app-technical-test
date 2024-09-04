@@ -36,6 +36,7 @@ async def add_device_cart(db: db_dependency, request: Request, cart_item: CartIt
         
         # Retrieve cart from session
         cart = request.session.get("cart")
+        
         # Ensure cart is a dictionary
         if not isinstance(cart, dict):
             cart = {}
@@ -50,10 +51,11 @@ async def add_device_cart(db: db_dependency, request: Request, cart_item: CartIt
 
 @router.get("/", status_code=status.HTTP_200_OK)
 async def get_cart_items(request: Request, db: db_dependency):
+    
+    # Retrieve cart from session
     cart = request.session.get("cart")
 
     try:
-        # Retrieve cart from session
         
         if not isinstance(cart, dict):
             cart = {}
@@ -76,13 +78,11 @@ async def get_cart_items(request: Request, db: db_dependency):
         total_quantity = sum([item["quantity"] for item in devices_cart])
         return {"cart": devices_cart, "total_price": sum_prices, "total_quantity": total_quantity}
     except Exception as ex:
-        # Maneja errores generales
         print(ex)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="An unexpected error occurred.")
 
 @router.put("/update-cart-quantity/", status_code=status.HTTP_200_OK)
 async def update_cart_quantity(request: Request, product_id: int, action: str, db:db_dependency):
-    # Retrieve cart from session
     cart = request.session.get("cart")
     
     if not isinstance(cart, dict):

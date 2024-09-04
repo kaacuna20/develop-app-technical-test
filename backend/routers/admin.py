@@ -100,7 +100,6 @@ async def get_order_products(
                 {"brand":product.brand},
                 {"price":product.price},
                 {"quantity":order_product.quantity}#,
-                #{"color": product.images.color}
                 ],
             "order": [
                 {"order-id":order.order_id},
@@ -193,8 +192,6 @@ async def upload_images(
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Error saving file {file.filename}: {e}")
 
-
-    # Guardar en la base de datos
     image = Image(
       
             main_image_url=list_files[0],

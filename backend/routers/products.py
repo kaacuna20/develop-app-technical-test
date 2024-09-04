@@ -33,10 +33,10 @@ async def offert_products(db: db_dependency):
         categories = db.query(Category).all()
         result = []
         for category in categories:
-            # Obtener productos con su imagen correspondiente usando left join
+          # Get products with their corresponding image using join
             products = (
                 db.query(Product, Image)
-                .join(Image)  # Left join para incluir productos sin imágenes
+                .join(Image)  
                 .filter(Product.category_id == category.category_id)
                 .order_by(Product.product_id.desc())
                 .limit(5)
@@ -50,7 +50,7 @@ async def offert_products(db: db_dependency):
                         "brand": product.brand,
                         "price": product.price,
                         "description": product.description,
-                        "images_url": images if images else None,  # Asignar None si no hay imagen
+                        "images_url": images if images else None,  
                         "slug": product.slug,
                     } for product, images in products
                 ]
@@ -58,7 +58,6 @@ async def offert_products(db: db_dependency):
         return {"response": result}
 
     except Exception as ex:
-        # Maneja errores generales
         print(ex)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="An unexpected error occurred.")
 
@@ -75,7 +74,6 @@ async def get_produt(db: db_dependency, slug: str):
         
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Sorry, there is not a product identified with that slug")
     except Exception as ex:
-        # Maneja errores generales
         print(ex)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="An unexpected error occurred.")
 
@@ -85,7 +83,6 @@ async def get_categories(db: db_dependency):
         categories = db.query(Category).all()
         return {"categories": categories}
     except Exception as ex:
-        # Maneja errores generales
         print(ex)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="An unexpected error occurred.")
     
@@ -114,7 +111,7 @@ async def get_products(db: db_dependency):
     
         return {"products": result}
     except Exception as ex:
-        # Maneja errores generales
+
         print(ex)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="An unexpected error occurred.")
 
@@ -122,8 +119,8 @@ async def get_products(db: db_dependency):
 async def filter_by_category(
     db: db_dependency,
     category_id: int,
-    page: int = Query(1, ge=1),  # Página inicial, por defecto 1, valor mínimo 1
-    size: int = Query(10, ge=1, le=100)  # Tamaño de página, por defecto 10, valor mínimo 1, valor máximo 100
+    page: int = Query(1, ge=1),  # Home page, default 1, minimum value 1
+    size: int = Query(10, ge=1, le=100)  # Page size, default 10, minimum value 1, maximum value 100
 ):
     
     try:
@@ -152,7 +149,6 @@ async def filter_by_category(
     
     except Exception as ex:
        
-        # Maneja errores generales
         print(ex)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="An unexpected error occurred.")
 
@@ -171,7 +167,6 @@ async def search(db: db_dependency, search_query: str):
                     Product.name.ilike(f"%{term}%"),
                     Category.name.ilike(f"%{term}%"),
                     Product.brand.ilike(f"%{term}%")
-                    # Omitimos Product.price si es un número
                 )
             )
         

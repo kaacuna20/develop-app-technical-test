@@ -31,7 +31,12 @@ export default function Register() {
     };
   
     return (
-      <div>
+      <div className="mt-5">
+        <hr style={{ borderTop: "1px solid #444" }} />
+        <hr style={{ borderTop: "1px solid #444" }} />
+        <hr style={{ borderTop: "1px solid #444" }} />
+        <h1 class="h3 mb-5 fw-normal">Register</h1>
+        <hr style={{ borderTop: "1px solid #444" }} />
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">

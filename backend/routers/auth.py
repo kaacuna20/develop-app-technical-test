@@ -17,7 +17,7 @@ router = APIRouter(
     tags=['authentication']
 )
 
-SECRET_KEY = "VNH4QWIU9BTNW'49B85NQEORIUBVWNQÓRIGUBVQEUoincveófibnsdoighñsndfkluibnzñr"
+SECRET_KEY = "supersecretkey"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
@@ -38,7 +38,7 @@ db_dependency = Annotated[Session, Depends(get_db)]
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_user(db: db_dependency, create_user_request: CreateUserRequest):
-    # Verificar si el email ya está registrado
+    # verify if email exist
     existing_user_by_email = db.query(User).filter(User.email == create_user_request.email).first()
     if existing_user_by_email:
         raise HTTPException(
@@ -46,7 +46,7 @@ async def create_user(db: db_dependency, create_user_request: CreateUserRequest)
             detail="Email is already registered."
         )
     
-    # Verificar si el username ya está registrado
+    # verify if username exist
     existing_user_by_username = db.query(User).filter(User.username == create_user_request.username).first()
     if existing_user_by_username:
         raise HTTPException(
@@ -54,7 +54,6 @@ async def create_user(db: db_dependency, create_user_request: CreateUserRequest)
             detail="Username is already taken."
         )
     
-    # Crear el nuevo usuario
     create_user_model = User(
         user_id=uuid4(),
         email=create_user_request.email,
@@ -117,6 +116,7 @@ async def admin_access(user: Annotated[dict, Depends(get_current_user)], db:db_d
     
     user = db.query(User).filter(User.user_id == user["id"]).first()
     
+    # verify if user is admin after authentication
     if not user.is_admin:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Your are not authorizated, you are not admin!")
     return {"UserAmin": user}

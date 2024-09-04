@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, DECIMAL, Text, Float, ForeignKey, DateTime, func, UniqueConstraint
+from sqlalchemy import Column, Integer, String, Boolean, DECIMAL, Text, Float, ForeignKey, DateTime, func
 from sqlalchemy.orm import relationship
 from slugify import slugify
 from database import Base
@@ -19,10 +19,8 @@ class Order(Base):
     quantity = Column(Integer)
     total = Column(DECIMAL(10, 2), nullable=False)
 
-    # Definir la relación con la tabla Users
     user = relationship("User", back_populates="orders")
 
-    # Definir la relación con la tabla OrderProduct
     order_products = relationship("OrderProduct", back_populates="order")
 
     def __repr__(self):
@@ -40,7 +38,6 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     register_date = Column(DateTime, default=func.now())
     
-    # Definir la relación con la tabla Orders
     orders = relationship("Order", back_populates="user")
     
     def __repr__(self):
@@ -55,10 +52,8 @@ class OrderProduct(Base):
     product_id = Column(Integer, ForeignKey('products.product_id'), nullable=False)
     quantity = Column(Integer)
 
-    # Definir la relación con la tabla Orders
     order = relationship("Order", back_populates="order_products")
 
-    # Definir la relación con la tabla Products
     product = relationship("Product", back_populates="order_products")
 
     def __repr__(self):
@@ -82,13 +77,10 @@ class Product(Base):
     slug = Column(String(110), unique=True, nullable=False, index=True)
     category_id = Column(Integer, ForeignKey('category.category_id'), nullable=False)
 
-    # Definir la relación con la tabla Category
     category = relationship("Category", back_populates="products")
 
-    # Definir la relación con la tabla OrderProduct
     order_products = relationship("OrderProduct", back_populates="product")
     
-    # Definir la relación uno a uno con la tabla 'images'
     image = relationship('Image', uselist=False, back_populates='product')
 
     def __init__(self, name, *args, **kwargs):
@@ -110,7 +102,6 @@ class Image(Base):
     fourth_image_url = Column(String(300), nullable=True)
     product_id = Column(Integer, ForeignKey('products.product_id', ondelete='SET NULL'), unique=True)
     
-    # Relación inversa uno a uno con la tabla 'products'
     product = relationship('Product', back_populates='image')
     
    
@@ -121,7 +112,6 @@ class Category(Base):
     category_id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, nullable=False)
     
-    # Definir la relación con la tabla Products
     products = relationship("Product", back_populates="category")
 
     def __repr__(self):

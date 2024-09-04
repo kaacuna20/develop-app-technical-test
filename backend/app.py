@@ -33,7 +33,7 @@ app.add_middleware(
     SessionMiddleware, 
     secret_key="supersecretkey",
     session_cookie="my_cookie",
-    max_age=3600  # 1 hora de duración para la sesión
+    max_age=3600  # 1 hour
 )
 
         

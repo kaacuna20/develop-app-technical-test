@@ -1,17 +1,6 @@
 version: "3.8"
 
 services:
-  # fastapi_app:
-  #   container_name: fastapi_app
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "8000:8000"
-  #   networks:
-  #     - web_app_devices
-  #   depends_on:
-  #     - mysql_db
 
   mysql_db:
     container_name: mysql_db

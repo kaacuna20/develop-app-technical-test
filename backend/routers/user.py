@@ -1,13 +1,12 @@
-from pydantic import BaseModel, Field
-from typing import Annotated, Optional
+from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
 from database import get_db
 from models import *
-from fastapi import Request, Depends
+from fastapi import Depends
 from routers.auth import  get_current_user
-from uuid import UUID, uuid4
+
 
 
 router = APIRouter(
@@ -61,7 +60,7 @@ async def history_orders(db: db_dependency, user: user_dependency):
             ).all()
             
             if order_history:
-                # Procesa los resultados
+             
                 products = []
                 for order_product, order, product, category in order_history:
                     products.append({

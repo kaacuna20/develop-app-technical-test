@@ -82,7 +82,7 @@ async def create_order(db: db_dependency, request: Request, order_form: OrderFor
     print(checkout)
     if checkout is None:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No checkout data found in session")
-    #try:  
+   
     total = checkout["total_price"] + order_form.shipments
     total_quantity = checkout["total_devices"]
     order_id = str(uuid4())  # Use string format for consistency
@@ -103,7 +103,7 @@ async def create_order(db: db_dependency, request: Request, order_form: OrderFor
     db.commit()
     
   
-        # Save order_product in the database
+    # Save order_product in the database
     for product_data in checkout["devices"]:
             order_product_table = OrderProduct(
                 order_id=order_id,
@@ -122,15 +122,12 @@ async def create_order(db: db_dependency, request: Request, order_form: OrderFor
         
     db.commit()
   
-        # Clear the session
+    # Clear the session
     request.session.pop("cart", None)
     request.session.pop("checkout", None)
 
     return {"order_id": order_id}
-    # except Exception as ex:
-      
-    #     print(ex)
-    #     raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="An unexpected error occurred.")
+
 
 
 @router.get("/details/{order_id}", status_code=status.HTTP_200_OK)
@@ -138,12 +135,12 @@ async def get_order_details(db: db_dependency, user: user_dependency, order_id: 
     if user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication Failed")
     
-    # Obtener la orden y productos asociados
+    # retrieve la order and products associated
     order = db.query(Order).filter(Order.order_id == order_id).first()
     if not order:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Order not found")
     
-    # Obtener los productos asociados a la orden
+    # get products associated to teh order
     products_by_order = (
         db.query(Product, OrderProduct.quantity, Image)
         .join(OrderProduct, OrderProduct.product_id == Product.product_id).join(Image)
@@ -154,7 +151,7 @@ async def get_order_details(db: db_dependency, user: user_dependency, order_id: 
     if not products_by_order:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No products found for this order")
     
-    # Construir la lista de productos
+    
     products_list = []
     for product, quantity, image in products_by_order:
         product_data = {
@@ -167,7 +164,6 @@ async def get_order_details(db: db_dependency, user: user_dependency, order_id: 
         }
         products_list.append(product_data)
     
-    # Construir la respuesta
     response = {
         "fullname": order.fullname,
         "address": order.address,
