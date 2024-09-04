@@ -1,0 +1,15 @@
+/* Establece un tamaño fijo para las imágenes del carrusel */
+.carousel-inner img {
+    max-height: 300px; /* Ajusta esta altura según tus necesidades */
+    object-fit: cover; /* Esto asegura que la imagen se ajuste dentro de las dimensiones especificadas */
+  }
+  
+  /* Redondea las esquinas de las imágenes */
+  .rounded-img {
+    border-radius: 15px; /* Ajusta el valor para cambiar el redondeado */
+  }
+  
+  /* Centra la marca y la descripción debajo de cada imagen */
+  .text-center {
+    text-align: center;
+  }

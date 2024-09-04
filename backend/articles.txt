@@ -1,0 +1,66 @@
+ {
+    "name": "Gaming PC X1",
+    "mark": "XYZ",
+    "price": 1500,
+    "description": "High-performance gaming PC with latest specs.",
+    "ram_memory": 16,
+    "cpu_speed": 3.6,
+    "disk_memory": 512,
+    "stock": 10,
+    "category_id": 1
+  },
+  {
+    "name": "Workstation Pro",
+    "mark": "ABC",
+    "price": 2000,
+    "description": "Powerful workstation for professional use.",
+    "ram_memory": 32,
+    "cpu_speed": 4.0,
+    "disk_memory": 1024,
+    "stock": 5,
+    "category_id": 1
+  }
+  {
+    "name": "Tablet 10.1",
+    "mark": "TabCo",
+    "price": 300,
+    "description": "10.1-inch tablet with high-resolution display.",
+    "ram_memory": 4,
+    "cpu_speed": 2.2,
+    "disk_memory": 64,
+    "stock": 20,
+    "category_id": 2
+  },
+  {
+    "name": "Tablet Mini Pro",
+    "mark": "TabCo",
+    "price": 450,
+    "description": "Compact tablet with premium features.",
+    "ram_memory": 6,
+    "cpu_speed": 2.8,
+    "disk_memory": 128,
+    "stock": 15,
+    "category_id": 2
+  }
+   {
+    "name": "Smartphone X",
+    "mark": "PhoneCo",
+    "price": 700,
+    "description": "Latest smartphone with advanced features.",
+    "ram_memory": 8,
+    "cpu_speed": 2.5,
+    "disk_memory": 256,
+    "stock": 30,
+    "category_id": 3
+  },
+  {
+    "name": "Smartphone Mini",
+    "mark": "PhoneCo",
+    "price": 400,
+    "description": "Compact smartphone with essential features.",
+    "ram_memory": 4,
+    "cpu_speed": 2.0,
+    "disk_memory": 64,
+    "stock": 25,
+    "category_id": 3
+  }

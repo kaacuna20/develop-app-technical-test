@@ -1,0 +1,73 @@
+/* Ensure the entire product detail component is centered and has appropriate padding */
+.product-detail {
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+/* Style for the main image */
+.main-image {
+  text-align: center; /* Center the main image */
+  margin-bottom: 20px;
+}
+
+.main-image img {
+  max-width: 100%; /* Make the image flexible */
+  height: auto; /* Maintain aspect ratio */
+  border: 2px solid #ddd; /* Add border to the image */
+  border-radius: 8px; /* Optional: round the corners of the border */
+}
+
+/* Style for small images */
+.small-images {
+  text-align: center; /* Center small images */
+}
+
+.small-images .row {
+  justify-content: center; /* Center the small images */
+  margin-left: 0; /* Remove left margin */
+  margin-right: 0; /* Remove right margin */
+}
+
+.small-images img {
+  width: 100%; /* Ensure thumbnails fit within their column */
+  height: auto; /* Maintain aspect ratio */
+  cursor: pointer;
+  border: 1px solid #ddd; /* Add border to thumbnails */
+  border-radius: 4px; /* Optional: round the corners of the border */
+}
+
+/* Ensure columns are correctly spaced */
+.col-md-6 {
+  padding-left: 15px; /* Adjust padding for better alignment */
+  padding-right: 15px; /* Adjust padding for better alignment */
+}
+
+/* Adjust row margins to ensure columns stay in the same row */
+.product-detail .row {
+  margin-left: -15px; /* Adjust negative margin to compensate for column padding */
+  margin-right: -15px; /* Adjust negative margin to compensate for column padding */
+}
+
+/* Style for the buttons */
+.btn-dark {
+  border: 2px solid #333; /* Add border to the button */
+  color: #333; /* Text color for the button */
+  background-color: #fff; /* Background color for the button */
+}
+
+.btn-dark:hover {
+  background-color: #333; /* Dark background on hover */
+  color: #fff; /* Light text color on hover */
+}
+
+.btn-primary {
+  border: 2px solid #007bff; /* Add border to the button */
+  color: #fff; /* Text color for the button */
+  background-color: #007bff; /* Background color for the button */
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Darker background on hover */
+  border-color: #004080; /* Darker border on hover */
+}

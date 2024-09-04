@@ -1,0 +1,8 @@
+.table-container {
+  display: grid;
+  place-items: center; /* Centra tanto horizontal como verticalmente */
+  width: 100%;
+  height: 100vh; /* Opcional: Si deseas que el contenedor ocupe toda la altura de la ventana */
+  padding: 20px;
+  box-sizing: border-box; /* Incluye el padding en el cálculo del ancho total */
+}

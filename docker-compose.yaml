@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  # fastapi_app:
+  #   container_name: fastapi_app
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - web_app_devices
+  #   depends_on:
+  #     - mysql_db
+
+  mysql_db:
+    container_name: mysql_db
+    image: mysql:latest
+    restart: always
+    volumes:
+      - ./mysql_db/mysql_data:/var/lib/mysql
+      - ./mysql_db/scripts_sql:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE=kaacuna_devices_db
+      - MYSQL_USER=kaacuna_dev
+      - MYSQL_PASSWORD=my_password
+    networks:
+      - web_app_devices
+networks:
+  web_app_devices:
+    driver: bridge
+
+volumes:
+  mysql_data:

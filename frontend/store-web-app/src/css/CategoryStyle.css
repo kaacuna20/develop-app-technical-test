@@ -1,0 +1,95 @@
+
+
+/* Ensure the page content is centered and has appropriate padding */
+div {
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 1200px; /* Maximum width for better alignment */
+  }
+  
+  /* Style for the category heading */
+  h1 {
+    text-align: center; /* Center the heading */
+    text-transform: capitalize; /* Capitalize the first letter of the first word */
+    margin-bottom: 20px;
+  }
+  
+  /* Style for the card container */
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Space between cards */
+  }
+  
+  /* Style for each card column */
+  .col {
+    flex: 1 1 calc(33.333% - 15px); /* Three columns with spacing */
+    max-width: calc(33.333% - 15px); /* Limit width of columns */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+  }
+  
+  /* Style for the card */
+  .card {
+    border: none; /* Remove default card border */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Clip overflow to keep rounded corners neat */
+  }
+  
+  /* Style for the card image */
+  .card img {
+    width: 100%; /* Make image take up the full width of the card */
+    height: auto; /* Maintain aspect ratio */
+    border-bottom: 1px solid #ddd; /* Add a border below the image */
+  }
+  
+  /* Style for the card body */
+  .card-body {
+    padding: 15px;
+  }
+  
+  /* Style for the card title and description */
+  .card-body h3 {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+  
+  .card-body p {
+    margin-bottom: 15px;
+  }
+  
+  /* Style for the card footer with price and brand */
+  .d-flex {
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Style for the pagination */
+  .pagination {
+    justify-content: center; /* Center the pagination */
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .page-item {
+    margin: 0 2px;
+  }
+  
+  .page-link {
+    border-radius: 5px;
+    padding: 8px 16px;
+  }
+  
+  .page-item.disabled .page-link {
+    cursor: not-allowed;
+  }
+  
+  .page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .page-link:hover {
+    background-color: #0056b3; /* Darker background on hover */
+    color: white;
+  }
+  

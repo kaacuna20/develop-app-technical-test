@@ -1,0 +1,23 @@
+/* Profile.css */
+
+.container-user {
+    max-width: 600px; /* You can adjust the max-width as needed */
+  }
+  
+  .profile-card {
+    background-color: #797b7c; /* Light gray background for better contrast */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Space inside the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border: 1px solid #e1e1e1; /* Light border */
+  }
+  
+  .profile-card p {
+    font-size: 18px; /* Larger text for better readability */
+    margin: 10px 0; /* Vertical spacing between paragraphs */
+  }
+  
+  .profile-card strong {
+    color: #333; /* Darker color for labels */
+  }
+  
