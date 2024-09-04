@@ -188,6 +188,45 @@ Los archivos en `scripts_sql/` se ejecutan automáticamente durante la inicializ
 - **Relación:** Uno a Muchos
 - **Descripción:** Un producto (`products`) puede estar incluido en múltiples pedidos (`order_product`). La columna `product_id` en `order_product` actúa como una clave foránea que referencia a `product_id` en `products`.
 
+# Paso a Paso: Crear el Primer Usuario Administrador en MySQL
+
+## 1. Verifica el Nombre del Contenedor MySQL
+Primero, verifica el nombre del contenedor de MySQL para asegurarte de usar el nombre correcto.
+```bash
+docker ps
+```
+## 2. Accede al Contenedor MySQL
+Accede al contenedor MySQL usando el siguiente comando:
+```bash
+docker exec -it mysql_db bash
+```
+## 3. Inicia Sesión en MySQL
+Una vez dentro del contenedor, inicia sesión en MySQL con el siguiente comando. Reemplaza root y `root_password` con las credenciales de tu usuario root de MySQL.
+```bash
+mysql -u root -p
+```
+## 4. Selecciona la Base de Datos
+Si tienes una base de datos específica donde quieres crear el usuario `admin`, selecciona esa base de datos:
+```bash
+USE kaacuna_devices_db;
+```
+## 5. Crea el Usuario Administrador
+Ejecuta el siguiente comando para crear un usuario `admin` con el rol de administrador (`is_admin = TRUE`):
+```bash
+INSERT INTO users (user_id, email, password, username, is_admin, is_active)
+VALUES (UUID(), 'admin@example.com', '123456', 'admin', TRUE, TRUE);
+```
+## 6. Verifica la Creación del Usuario
+Para asegurarte de que el usuario se ha creado correctamente, puedes ejecutar una consulta para ver los detalles:
+```bash
+SELECT * FROM users WHERE username = 'admin';
+```
+## 7. Sal de MySQL y del Contenedor
+Para asegurarte de que el usuario se ha creado correctamente, puedes ejecutar una consulta para ver los detalles:
+```bash
+exit;
+exit
+```
 
 ## Configuración de FastAPI
 
