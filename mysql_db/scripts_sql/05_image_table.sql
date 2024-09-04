@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS images (
     second_image_url VARCHAR(300) NOT NULL,
     third_image_url VARCHAR(300) NOT NULL,
     fourth_image_url VARCHAR(300) NOT NULL,
-    product_id INT,
+    product_id INT UNIQUE,
     FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE SET NULL
 );
 
