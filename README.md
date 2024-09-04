@@ -82,6 +82,92 @@ Los archivos en `scripts_sql/` se ejecutan automáticamente durante la inicializ
 - `06_order_products.sql`: Asociación entre pedidos y productos.
 - `07_triggers.sql`: Triggers para operaciones específicas en la base de datos.
 
+- ## Relaciones de la Base de Datos
+
+### Tablas y Relaciones
+
+1. **Tabla `users`**
+   - **user_id (CHAR(36))**: Identificador único del usuario. Es la clave primaria.
+   - **email (VARCHAR(100))**: Correo electrónico del usuario, debe ser único.
+   - **password (VARCHAR(200))**: Contraseña del usuario.
+   - **username (VARCHAR(100))**: Nombre de usuario, debe ser único.
+   - **is_admin (BOOL)**: Indica si el usuario es administrador. Valor por defecto es `FALSE`.
+   - **is_active (BOOL)**: Indica si el usuario está activo. Valor por defecto es `TRUE`.
+   - **register_date (TIMESTAMP)**: Fecha y hora en que el usuario se registró. Valor por defecto es la fecha y hora actual.
+
+2. **Tabla `orders`**
+   - **order_id (CHAR(36))**: Identificador único del pedido. Es la clave primaria.
+   - **user_id (CHAR(36))**: Identificador del usuario que realizó el pedido. Es una clave foránea que referencia `users(user_id)`.
+   - **fullname (VARCHAR(100))**: Nombre completo del destinatario.
+   - **phone (VARCHAR(10))**: Número de teléfono del destinatario.
+   - **address (VARCHAR(50))**: Dirección del destinatario.
+   - **city (VARCHAR(50))**: Ciudad del destinatario.
+   - **zip_code (VARCHAR(20))**: Código postal del destinatario.
+   - **shipments (INT)**: Número de envíos.
+   - **order_date (TIMESTAMP)**: Fecha y hora en que se realizó el pedido. Valor por defecto es la fecha y hora actual.
+   - **quantity (INT)**: Cantidad total de productos en el pedido.
+   - **total (DECIMAL(10, 2))**: Total del pedido.
+   - **FOREIGN KEY (user_id)**: Referencia a `users(user_id)`. Se elimina en cascada si el usuario es eliminado.
+
+3. **Tabla `category`**
+   - **category_id (INT AUTO_INCREMENT)**: Identificador único de la categoría. Es la clave primaria.
+   - **name (VARCHAR(100))**: Nombre de la categoría, debe ser único.
+
+4. **Tabla `products`**
+   - **product_id (INT AUTO_INCREMENT)**: Identificador único del producto. Es la clave primaria.
+   - **name (VARCHAR(100))**: Nombre del producto, debe ser único.
+   - **brand (VARCHAR(100))**: Marca del producto.
+   - **price (DECIMAL(10, 2))**: Precio del producto.
+   - **iva (DECIMAL(10, 2))**: Impuesto sobre el valor agregado calculado automáticamente.
+   - **description (TEXT)**: Descripción del producto.
+   - **ram_memory (INT)**: Memoria RAM del producto.
+   - **cpu_speed (FLOAT)**: Velocidad del CPU del producto.
+   - **disk_memory (INT)**: Memoria de disco del producto.
+   - **stock (INT)**: Cantidad de producto en stock.
+   - **is_stock (BOOL)**: Indica si el producto está en stock, calculado automáticamente.
+   - **slug (VARCHAR(110))**: Identificador único para el producto en formato URL.
+   - **category_id (INT)**: Identificador de la categoría del producto. Es una clave foránea que referencia `category(category_id)`. Se establece en NULL si la categoría es eliminada.
+
+5. **Tabla `images`**
+   - **image_id (INT AUTO_INCREMENT)**: Identificador único de la imagen. Es la clave primaria.
+   - **color (VARCHAR(50))**: Color del producto.
+   - **main_image_url (VARCHAR(300))**: URL de la imagen principal del producto.
+   - **second_image_url (VARCHAR(300))**: URL de la segunda imagen del producto.
+   - **third_image_url (VARCHAR(300))**: URL de la tercera imagen del producto.
+   - **fourth_image_url (VARCHAR(300))**: URL de la cuarta imagen del producto.
+   - **product_id (INT)**: Identificador del producto asociado. Es una clave foránea que referencia `products(product_id)`. Se establece en NULL si el producto es eliminado.
+
+6. **Tabla `order_product`**
+   - **order_product_id (INT AUTO_INCREMENT)**: Identificador único de la relación entre pedido y producto. Es la clave primaria.
+   - **order_id (CHAR(36))**: Identificador del pedido. Es una clave foránea que referencia `orders(order_id)`.
+   - **product_id (INT)**: Identificador del producto. Es una clave foránea que referencia `products(product_id)`.
+   - **quantity (INT)**: Cantidad del producto en el pedido.
+   - **UNIQUE (order_id, product_id)**: Garantiza que no se repita la combinación de pedido y producto.
+
+## Triggers
+
+1. **Trigger `calculate_iva`**
+   - **Descripción:** Calcula el IVA del producto antes de insertar un nuevo producto en la tabla `products`.
+   - **Evento:** `BEFORE INSERT`
+   - **Acción:** Establece el campo `iva` como el 19% del campo `price`.
+
+2. **Trigger `calculate_iva_update`**
+   - **Descripción:** Calcula el IVA del producto antes de actualizar un producto existente en la tabla `products`.
+   - **Evento:** `BEFORE UPDATE`
+   - **Acción:** Establece el campo `iva` como el 19% del campo `price`.
+
+3. **Trigger `create_is_stock_on_update`**
+   - **Descripción:** Establece el campo `is_stock` en `FALSE` si el stock es menor o igual a 0 antes de insertar un nuevo producto en la tabla `products`.
+   - **Evento:** `BEFORE INSERT`
+   - **Acción:** Configura `is_stock` a `FALSE` si `stock` es menor o igual a 0, de lo contrario, lo establece en `TRUE`.
+
+4. **Trigger `update_is_stock_on_update`**
+   - **Descripción:** Establece el campo `is_stock` en `FALSE` si el stock es menor o igual a 0 antes de actualizar un producto existente en la tabla `products`.
+   - **Evento:** `BEFORE UPDATE`
+   - **Acción:** Configura `is_stock` a `FALSE` si `stock` es menor o igual a 0, de lo contrario, lo establece en `TRUE`.
+
+
+
 ## Configuración de FastAPI
 
 La estructura del proyecto para el backend en FastAPI es la siguiente:
