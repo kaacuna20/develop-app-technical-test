@@ -166,6 +166,27 @@ Los archivos en `scripts_sql/` se ejecutan automáticamente durante la inicializ
    - **Evento:** `BEFORE UPDATE`
    - **Acción:** Configura `is_stock` a `FALSE` si `stock` es menor o igual a 0, de lo contrario, lo establece en `TRUE`.
 
+## Relaciones entre Tablas
+
+### 1. `users` y `orders`
+- **Relación:** Uno a Muchos
+- **Descripción:** Un usuario (`users`) puede tener múltiples pedidos (`orders`). La columna `user_id` en `orders` actúa como una clave foránea que referencia a `user_id` en `users`.
+
+### 2. `category` y `products`
+- **Relación:** Uno a Muchos
+- **Descripción:** Una categoría (`category`) puede contener múltiples productos (`products`). La columna `category_id` en `products` actúa como una clave foránea que referencia a `category_id` en `category`.
+
+### 3. `products` y `images`
+- **Relación:** Uno a Uno
+- **Descripción:** Un producto (`products`) tiene una única imagen (`images`). La columna `product_id` en `images` actúa como una clave foránea que referencia a `product_id` en `products` y es única.
+
+### 4. `orders` y `order_product`
+- **Relación:** Uno a Muchos
+- **Descripción:** Un pedido (`orders`) puede incluir múltiples productos (`order_product`). La columna `order_id` en `order_product` actúa como una clave foránea que referencia a `order_id` en `orders`.
+
+### 5. `products` y `order_product`
+- **Relación:** Uno a Muchos
+- **Descripción:** Un producto (`products`) puede estar incluido en múltiples pedidos (`order_product`). La columna `product_id` en `order_product` actúa como una clave foránea que referencia a `product_id` en `products`.
 
 
 ## Configuración de FastAPI
