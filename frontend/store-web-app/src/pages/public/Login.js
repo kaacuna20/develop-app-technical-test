@@ -17,10 +17,10 @@ export default function Login() {
     e.preventDefault();
     setError("");
     setSuccess("");
-    console.log(username, password)
+    console.log(username, password);
 
     try {
-      const response = await loginUser( username, password );
+      const response = await loginUser(username, password);
       login(response); // Actualiza el contexto con los datos del usuario
       setSuccess(response.new_user); // Mensaje de éxito recibido
       toast.success(response.new_user); // Mostrar alerta de éxito
@@ -36,7 +36,7 @@ export default function Login() {
   return (
     <div class="my-5 mx-5">
       <form onSubmit={handleSubmit}>
-<div className="mt-5"></div>
+        <div className="mt-5"></div>
         <h1 class="h3 mb-5 fw-normal">Please sign in</h1>
 
         <div class="form-floating">
@@ -62,7 +62,6 @@ export default function Login() {
           />
           <label for="floatingPassword">Password</label>
         </div>
-
 
         <button class="btn btn-primary w-100 py-2" type="submit">
           Sign in

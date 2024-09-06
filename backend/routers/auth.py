@@ -1,16 +1,18 @@
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr
-from typing import Annotated
 from datetime import datetime, timedelta
 from uuid import UUID, uuid4
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
 from starlette import status
-from database import get_db
+from database import db_dependency
 from models import User
 from sqlalchemy.exc import IntegrityError
+from routers.csfr_token import csrf_dependency
+from typing import Annotated
+
+
 
 router = APIRouter(
     prefix='/auth',
@@ -24,6 +26,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60
 bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 auth2_bearer = OAuth2PasswordBearer(tokenUrl='auth/token')
 
+
 class CreateUserRequest(BaseModel):
     email: EmailStr
     password: str
@@ -34,10 +37,10 @@ class Token(BaseModel):
     token_type: str
     
         
-db_dependency = Annotated[Session, Depends(get_db)]
+
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-async def create_user(db: db_dependency, create_user_request: CreateUserRequest):
+async def create_user(db: db_dependency, create_user_request: CreateUserRequest, csrf_token: csrf_dependency):
     # verify if email exist
     existing_user_by_email = db.query(User).filter(User.email == create_user_request.email).first()
     if existing_user_by_email:

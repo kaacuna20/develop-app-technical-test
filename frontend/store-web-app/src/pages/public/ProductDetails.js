@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { getProduct } from "../../apis/Products";
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { addProductCart } from "../../apis/Cart";
-import './../../css/ProductDetailStyle.css'; 
-
+import "./../../css/ProductDetailStyle.css";
 
 export default function ProductDetails() {
   const { slug } = useParams();
   const [product, setProduct] = useState({});
   const [images, setImages] = useState({});
-  const [mainImage, setMainImage] = useState('');
+  const [mainImage, setMainImage] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,7 +26,7 @@ export default function ProductDetails() {
       try {
         const data = await getProduct(slug);
         setProduct(data.response.product);
-        setImages(data.response.images)
+        setImages(data.response.images);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -50,16 +49,21 @@ export default function ProductDetails() {
     e.preventDefault();
 
     try {
-      const response = await addProductCart({ product_id: product.product_id, quantity });
+      const response = await addProductCart({
+        product_id: product.product_id,
+        quantity,
+      });
       toast.success("Product added to cart successfully!");
     } catch (err) {
-      toast.error(err.message || "An error occurred while adding the item to the cart.");
+      toast.error(
+        err.message || "An error occurred while adding the item to the cart."
+      );
     }
   };
 
-    // Filter out non-image entries
+  // Filter out non-image entries
   const imageUrls = Object.entries(images)
-    .filter(([key]) => key.includes('image_url')) // Filter only keys that include 'image_url'
+    .filter(([key]) => key.includes("image_url")) // Filter only keys that include 'image_url'
     .map(([_, value]) => value); // Extract values
 
   if (loading) return <p>Loading...</p>;
@@ -92,11 +96,9 @@ export default function ProductDetails() {
             </div>
           </div>
         </div>
-  
+
         {/* Right Column: Product Details and Add to Cart */}
-        <div
-          className="col-md-6 d-flex flex-column justify-content-center align-items-center"
-        >
+        <div className="col-md-6 d-flex flex-column justify-content-center align-items-center">
           <h1 className="text-center">{product.name}</h1>
           <h2 className="text-center">{product.brand}</h2>
           <h3 className="text-center">${product.price}</h3>
@@ -116,9 +118,7 @@ export default function ProductDetails() {
               >
                 -
               </button>
-              <div className="quantity-input mx-2">
-                {quantity}
-              </div>
+              <div className="quantity-input mx-2">{quantity}</div>
               <button
                 type="button"
                 className="btn btn-dark"
@@ -135,6 +135,4 @@ export default function ProductDetails() {
       </div>
     </div>
   );
-  
 }
-

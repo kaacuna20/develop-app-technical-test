@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { filterByCategory } from "../../apis/Products";
 import { useParams, useSearchParams, Link } from "react-router-dom";
-import './../../css/CategoryStyle.css'; 
-
+import "./../../css/CategoryStyle.css";
 
 // Base URL of your FastAPI backend
 const API_URL = "http://localhost:8000";
@@ -44,29 +43,43 @@ export default function CategoryProducts() {
     setSearchParams({ page: newPage });
   };
 
-  if (products.length === 0) return   <div className="table-responsive mt-5">
-      <div className="mt-5"><h1>There are not devices for this category!</h1></div></div>;
+  if (products.length === 0)
+    return (
+      <div className="table-responsive mt-5">
+        <div className="mt-5">
+          <h1>There are not devices for this category!</h1>
+        </div>
+      </div>
+    );
 
   return (
     <div className="'profile-container mt-5">
-<div className="mt-5">
-<ul class="nav justify-content-center">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-  </li>
-</ul>
-</div>
       <div className="mt-5">
-      <h1>{category}</h1>
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">
+              Active
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Link
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Link
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">
+              Disabled
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div className="mt-5">
+        <h1>{category}</h1>
       </div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {loading && <p>Loading...</p>}
@@ -86,12 +99,10 @@ export default function CategoryProducts() {
                 </Link>
                 <div class="card-body">
                   <h3>{product.name}</h3>
-                  <p class="card-text">
-                    {product.description}
-                  </p>
+                  <p class="card-text">{product.description}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                   <h5>$ {product.price}</h5>
+                      <h5>$ {product.price}</h5>
                     </div>
                     <small class="text-body-secondary">{product.brand}</small>
                   </div>

@@ -31,7 +31,7 @@ export default function CheckOut() {
         phone: phone,
         address: address,
         city: city,
-        zip_code:zipCode,
+        zip_code: zipCode,
         shipments: Number(shipments),
       });
       setSuccess(response.order_id); // Mensaje de éxito recibido
@@ -69,8 +69,6 @@ export default function CheckOut() {
     return <div>Loading...</div>;
   }
 
-  
-      
   return (
     <div className="container-fluid mt-5">
       <div className="row">
@@ -80,7 +78,9 @@ export default function CheckOut() {
           <form onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-sm-6">
-                <label htmlFor="firstName" className="form-label">Full Name</label>
+                <label htmlFor="firstName" className="form-label">
+                  Full Name
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -89,24 +89,34 @@ export default function CheckOut() {
                   onChange={(e) => setFullName(e.target.value)}
                   required
                 />
-                <div className="invalid-feedback">Valid fullname is required.</div>
+                <div className="invalid-feedback">
+                  Valid fullname is required.
+                </div>
               </div>
-  
+
               <div className="col-sm-6">
-                <label htmlFor="lastName" className="form-label">Contact</label>
+                <label htmlFor="lastName" className="form-label">
+                  Contact
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value.replace(/[^0-9]/g, ""))}
+                  onChange={(e) =>
+                    setPhone(e.target.value.replace(/[^0-9]/g, ""))
+                  }
                   pattern="\d{10}"
                   required
                 />
-                <div className="invalid-feedback">Valid number is required.</div>
+                <div className="invalid-feedback">
+                  Valid number is required.
+                </div>
               </div>
-  
+
               <div className="col-12">
-                <label htmlFor="city" className="form-label">City</label>
+                <label htmlFor="city" className="form-label">
+                  City
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -114,11 +124,15 @@ export default function CheckOut() {
                   onChange={(e) => setCity(e.target.value)}
                   required
                 />
-                <div className="invalid-feedback">Please enter a valid city.</div>
+                <div className="invalid-feedback">
+                  Please enter a valid city.
+                </div>
               </div>
-  
+
               <div className="col-12">
-                <label htmlFor="address" className="form-label">Address</label>
+                <label htmlFor="address" className="form-label">
+                  Address
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -128,11 +142,15 @@ export default function CheckOut() {
                   onChange={(e) => setAdress(e.target.value)}
                   required
                 />
-                <div className="invalid-feedback">Please enter your shipping address.</div>
+                <div className="invalid-feedback">
+                  Please enter your shipping address.
+                </div>
               </div>
-  
+
               <div className="col-md-3">
-                <label htmlFor="zip" className="form-label">Zip</label>
+                <label htmlFor="zip" className="form-label">
+                  Zip
+                </label>
                 <span className="text-body-secondary">(Optional)</span>
                 <input
                   type="text"
@@ -142,9 +160,11 @@ export default function CheckOut() {
                   onChange={(e) => setZipCode(e.target.value)}
                 />
               </div>
-  
+
               <div className="col-md-5">
-                <label htmlFor="country" className="form-label">Shipments</label>
+                <label htmlFor="country" className="form-label">
+                  Shipments
+                </label>
                 <select
                   className="form-select"
                   id="shipment"
@@ -156,33 +176,48 @@ export default function CheckOut() {
                   <option value="10">10</option>
                   <option value="15">15</option>
                 </select>
-                <div className="invalid-feedback">Please select a valid Shipment.</div>
+                <div className="invalid-feedback">
+                  Please select a valid Shipment.
+                </div>
               </div>
             </div>
-  
-            <button className="w-100 btn btn-primary btn-lg mt-3" type="submit">Create Order</button>
+
+            <button className="w-100 btn btn-primary btn-lg mt-3" type="submit">
+              Create Order
+            </button>
           </form>
         </div>
-  
+
         {/* Lista de productos en el lado derecho */}
         <div className="col-md-5" style={{ marginLeft: 0, marginRight: 0 }}>
           <h4 className="d-flex justify-content-between align-items-center mb-3">
             <span className="text-primary">Your cart</span>
-            <span className="badge bg-primary rounded-pill">{checkOut.total_devices}</span>
+            <span className="badge bg-primary rounded-pill">
+              {checkOut.total_devices}
+            </span>
           </h4>
           <ul className="list-group mb-3">
             {checkOut.devices.map((device, index) => (
-              <li key={index} className="list-group-item d-flex justify-content-between lh-sm">
+              <li
+                key={index}
+                className="list-group-item d-flex justify-content-between lh-sm"
+              >
                 <div className="d-flex align-items-center">
                   <img
                     src={`${API_URL}/${device.image_url}`}
                     alt={device.name}
                     className="me-3"
-                    style={{ width: '50px', height: '50px', objectFit: 'cover' }}
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      objectFit: "cover",
+                    }}
                   />
                   <div>
                     <h6 className="my-0">{device.name}</h6>
-                    <small className="text-body-secondary">{device.quantity} UDs</small>
+                    <small className="text-body-secondary">
+                      {device.quantity} UDs
+                    </small>
                   </div>
                 </div>
                 <span className="text-body-secondary">${device.price}</span>
@@ -195,7 +230,7 @@ export default function CheckOut() {
           </ul>
         </div>
       </div>
-  
+
       <Link
         to="/order/e88c8b5f-9158-4d6e-8c22-f4bf0df85348/"
         className="nav-link px-2 text-white ms-3"
@@ -204,7 +239,4 @@ export default function CheckOut() {
       </Link>
     </div>
   );
-  
-  
-  
 }

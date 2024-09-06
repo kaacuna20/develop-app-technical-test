@@ -9,6 +9,8 @@ from models import *
 from typing import Optional
 import os
 from routers.auth import admin_access
+from routers.csfr_token import csrf_dependency
+from database import db_dependency
 
 
 router = APIRouter(
@@ -34,7 +36,6 @@ class UpdateProductRequest(BaseModel):
     category_id: int = Field(gt=0)
     
 
-db_dependency = Annotated[Session, Depends(get_db)]
 admin_dependency = Annotated[dict, Depends(admin_access)]
 
 @router.get("/protected-route/", status_code=status.HTTP_200_OK)
@@ -113,7 +114,7 @@ async def get_order_products(
     return {"response":full_info}
 
 @router.post("/create-category/", status_code=status.HTTP_201_CREATED)
-async def create_category(db: db_dependency, admin: admin_dependency, category:str):
+async def create_category(db: db_dependency, admin: admin_dependency, category:str, csrf_token: csrf_dependency):
     
     if admin is None:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
@@ -133,7 +134,13 @@ async def create_category(db: db_dependency, admin: admin_dependency, category:s
 
 
 @router.post("/create-product/", status_code=status.HTTP_201_CREATED)
-async def create_product(db: db_dependency, admin: admin_dependency, create_product_request: CreateProductRequest):
+async def create_product(
+    db: db_dependency, 
+    admin: admin_dependency, 
+    create_product_request: CreateProductRequest, 
+    csrf_token: csrf_dependency
+    ):
+    
     if admin is None:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     
@@ -164,6 +171,7 @@ UPLOAD_DIR = "images"
 async def upload_images(
         db: db_dependency, 
         admin: admin_dependency,
+        csrf_token: csrf_dependency,
         product_id: int, 
         main_image_url: Annotated[UploadFile, File()],
         second_image_url: Annotated[UploadFile, File()],
@@ -207,7 +215,13 @@ async def upload_images(
 
 
 @router.put("/update-category/{category_id}", status_code=status.HTTP_200_OK)
-async def change_category(db: db_dependency, admin: admin_dependency, category_id: int, new_name: str):
+async def change_category(
+    db: db_dependency, 
+    admin: admin_dependency, 
+    csrf_token: csrf_dependency,
+    category_id: int, 
+    new_name: str
+    ):
     
     if admin is None:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
@@ -221,7 +235,14 @@ async def change_category(db: db_dependency, admin: admin_dependency, category_i
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Sorry, a category with that id was not found in the database.")
     
 @router.put("/update-products-items/{product_id}/", status_code=status.HTTP_200_OK)
-async def update_items_product(db: db_dependency, admin: admin_dependency, product_id: int, update_product: UpdateProductRequest):
+async def update_items_product(
+    db: db_dependency, 
+    admin: admin_dependency,
+    csrf_token: csrf_dependency, 
+    product_id: int, 
+    update_product: UpdateProductRequest
+    ):
+    
     product = db.query(Product).filter(Product.product_id == product_id).first()
     if admin is None:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
@@ -239,7 +260,11 @@ async def update_items_product(db: db_dependency, admin: admin_dependency, produ
     
 
 @router.delete("/delete-category/{category_id}", status_code=status.HTTP_200_OK)
-async def delete_category(db: db_dependency, admin: admin_dependency, category_id: int):
+async def delete_category(
+    db: db_dependency, admin: admin_dependency, 
+    csrf_token: csrf_dependency, 
+    category_id: int
+    ):
     if admin is None:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     category = db.query(Category).filter(Category.category_id == category_id).first()
@@ -251,7 +276,13 @@ async def delete_category(db: db_dependency, admin: admin_dependency, category_i
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Sorry, a category with that id was not found in the database.")
     
 @router.put("/update-state-user/{user_id}", status_code=status.HTTP_200_OK)
-async def change_category(db: db_dependency, admin: admin_dependency, user_id: str, new_state: bool):
+async def change_category(
+    db: db_dependency, 
+    admin: admin_dependency,
+    csrf_token: csrf_dependency, 
+    user_id: str, 
+    new_state: bool
+    ):
     
     if admin is None:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")

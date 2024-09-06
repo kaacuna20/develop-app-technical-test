@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// Base URL of your FastAPI backend
+// Base URL of your FastAPI backend/cart
 const API_URL = "http://localhost:8000/cart";
 
 export const cartProducts = async () => {
@@ -111,9 +111,12 @@ export const changeQuantityProductCart = async (product_id, action) => {
 
 export const deleteProductCart = async (product_id) => {
   try {
-    const response = await axios.delete(`${API_URL}/delete-device/?product_id=${product_id}`, {
-      withCredentials: true, // Incluir cookies en solicitudes cross-origin
-    });
+    const response = await axios.delete(
+      `${API_URL}/delete-device/?product_id=${product_id}`,
+      {
+        withCredentials: true, // Incluir cookies en solicitudes cross-origin
+      }
+    );
     console.log("Product deleted:", response.data);
     return response.data;
   } catch (error) {

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { getUserProfile } from '../../apis/User';
-import './../../css/ProfileStyle.css'; 
+import React, { useEffect, useState } from "react";
+import { getUserProfile } from "../../apis/User";
+import "./../../css/ProfileStyle.css";
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -29,15 +29,21 @@ const Profile = () => {
 
   return (
     <div className="container-user mt-5">
-    <div className="text-center mt-4">
-      <h1>Your Data Profile</h1>
+      <div className="text-center mt-4">
+        <h1>Your Data Profile</h1>
+      </div>
+      <div className="profile-card mx-auto">
+        <p>
+          <strong>Username:</strong> {profile.username}
+        </p>
+        <p>
+          <strong>ID:</strong> {profile.user_id}
+        </p>
+        <p>
+          <strong>Email:</strong> {profile.email}
+        </p>
+      </div>
     </div>
-    <div className="profile-card mx-auto">
-      <p><strong>Username:</strong> {profile.username}</p>
-      <p><strong>ID:</strong> {profile.user_id}</p>
-      <p><strong>Email:</strong> {profile.email}</p>
-    </div>
-  </div>
   );
 };
 

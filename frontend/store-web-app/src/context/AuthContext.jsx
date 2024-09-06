@@ -2,13 +2,10 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { getCurrentUser } from "../apis/Auth";
 
-
-
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -32,9 +29,6 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("token");
   };
-
-  
- 
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>

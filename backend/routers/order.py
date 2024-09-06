@@ -8,6 +8,7 @@ from models import *
 from fastapi import Request, Depends
 from routers.auth import  get_current_user
 from uuid import uuid4
+from routers.csfr_token import csrf_dependency
 
 
 router = APIRouter(
@@ -74,7 +75,13 @@ async def get_order(request: Request, db: db_dependency, user: user_dependency):
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="An unexpected error occurred.")
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-async def create_order(db: db_dependency, request: Request, order_form: OrderForm, user: user_dependency):
+async def create_order(
+    request: Request, 
+    order_form: OrderForm, 
+    db: db_dependency, 
+    user: user_dependency, 
+    csrf_token: csrf_dependency
+    ):
     if user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication Failed")
     
@@ -127,7 +134,6 @@ async def create_order(db: db_dependency, request: Request, order_form: OrderFor
     request.session.pop("checkout", None)
 
     return {"order_id": order_id}
-
 
 
 @router.get("/details/{order_id}", status_code=status.HTTP_200_OK)

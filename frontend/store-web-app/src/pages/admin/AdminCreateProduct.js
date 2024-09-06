@@ -94,10 +94,10 @@ export default function CreateProduct() {
       const response = await uploadImages(productId, images);
       console.log("Images uploaded successfully:", response);
       toast.success("Images uploaded successfully");
-        mainImageRef.current.value = "";
-        secondImageRef.current.value = "";
-        thirdImageRef.current.value = "";
-        fourthImageRef.current.value = "";
+      mainImageRef.current.value = "";
+      secondImageRef.current.value = "";
+      thirdImageRef.current.value = "";
+      fourthImageRef.current.value = "";
     } catch (error) {
       console.error("Failed to upload images:", error);
       toast.error("Failed to upload images");
@@ -146,257 +146,285 @@ export default function CreateProduct() {
 
   return (
     <div className="container my-5">
-  <h1 className="text-center mb-4">Create Product</h1>
-  
-  <h3>Add Category</h3>
-  <div className="mb-4 border-bottom">
-    <form onSubmit={handleCategorySubmit}>
-      <div className="col-12 mb-3">
-        <label htmlFor="category" className="form-label">
-          Category
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          required
-        />
-        <div className="invalid-feedback">Please enter your category.</div>
-      </div>
-      <button className="btn btn-primary mt-3 d-block mx-auto">Add Category</button>
-    </form>
-  </div>
+      <h1 className="text-center mb-4">Create Product</h1>
 
-  <h3>Add Product</h3>
-  <div className="mb-4 border-bottom">
-    <form onSubmit={handleProductSubmit}>
-      <div className="col-12 mb-3">
-        <label htmlFor="name" className="form-label">
-          Name
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <div className="invalid-feedback">Please enter your product name.</div>
+      <h3>Add Category</h3>
+      <div className="mb-4 border-bottom">
+        <form onSubmit={handleCategorySubmit}>
+          <div className="col-12 mb-3">
+            <label htmlFor="category" className="form-label">
+              Category
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+            />
+            <div className="invalid-feedback">Please enter your category.</div>
+          </div>
+          <button className="btn btn-primary mt-3 d-block mx-auto">
+            Add Category
+          </button>
+        </form>
       </div>
 
-      <div className="col-12 mb-3">
-        <label htmlFor="brand" className="form-label">
-          Brand
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="brand"
-          value={brand}
-          onChange={(e) => setBrand(e.target.value)}
-          required
-        />
-        <div className="invalid-feedback">Please enter your product brand.</div>
+      <h3>Add Product</h3>
+      <div className="mb-4 border-bottom">
+        <form onSubmit={handleProductSubmit}>
+          <div className="col-12 mb-3">
+            <label htmlFor="name" className="form-label">
+              Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <div className="invalid-feedback">
+              Please enter your product name.
+            </div>
+          </div>
+
+          <div className="col-12 mb-3">
+            <label htmlFor="brand" className="form-label">
+              Brand
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="brand"
+              value={brand}
+              onChange={(e) => setBrand(e.target.value)}
+              required
+            />
+            <div className="invalid-feedback">
+              Please enter your product brand.
+            </div>
+          </div>
+
+          <div className="col-12 mb-3">
+            <label htmlFor="price" className="form-label">
+              Price
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="price"
+              min="0"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+            />
+            <div className="invalid-feedback">
+              Please enter your product price.
+            </div>
+          </div>
+
+          <div className="col-12 mb-3">
+            <label htmlFor="description" className="form-label">
+              Description
+            </label>
+            <textarea
+              className="form-control"
+              id="description"
+              placeholder="Brief Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+            <div className="invalid-feedback">
+              Please enter your product description.
+            </div>
+          </div>
+
+          <div className="col-12 mb-3">
+            <label htmlFor="ramMemory" className="form-label">
+              Ram Memory (GB)
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="ramMemory"
+              min="0"
+              value={ramMemory}
+              onChange={(e) => setRamMemory(e.target.value)}
+              required
+            />
+            <div className="invalid-feedback">
+              Please enter your product RAM.
+            </div>
+          </div>
+
+          <div className="col-12 mb-3">
+            <label htmlFor="cpu" className="form-label">
+              CPU (GHz)
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="cpu"
+              min="0"
+              value={cpu}
+              onChange={(e) => setCpu(e.target.value)}
+              required
+            />
+            <div className="invalid-feedback">
+              Please enter your product CPU.
+            </div>
+          </div>
+
+          <div className="col-12 mb-3">
+            <label htmlFor="diskMemory" className="form-label">
+              Disk Memory (GB)
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="diskMemory"
+              min="0"
+              value={diskMemory}
+              onChange={(e) => setDiskMemory(e.target.value)}
+              required
+            />
+            <div className="invalid-feedback">
+              Please enter your product disk memory.
+            </div>
+          </div>
+
+          <div className="col-12 mb-3">
+            <label htmlFor="stock" className="form-label">
+              Stock
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="stock"
+              min="0"
+              value={stock}
+              onChange={(e) => setStock(e.target.value)}
+              required
+            />
+            <div className="invalid-feedback">
+              Please enter your product stock.
+            </div>
+          </div>
+
+          <div className="col-md-5 mb-3">
+            <label htmlFor="category" className="form-label">
+              Category
+            </label>
+            <select
+              className="form-select"
+              id="category"
+              required
+              value={categoryId}
+              onChange={handleCategoryChange}
+            >
+              {categories.map((category) => (
+                <option key={category.category_id} value={category.category_id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            <div className="invalid-feedback">
+              Please select a valid category.
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary mt-3 d-block mx-auto"
+          >
+            Add Product
+          </button>
+        </form>
       </div>
 
-      <div className="col-12 mb-3">
-        <label htmlFor="price" className="form-label">
-          Price
-        </label>
-        <input
-          type="number"
-          className="form-control"
-          id="price"
-          min="0"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-        <div className="invalid-feedback">Please enter your product price.</div>
-      </div>
+      <h3>Add Images</h3>
+      <div className="mb-4">
+        <form onSubmit={handleImageSubmit}>
+          <div className="col-md-5 mb-3">
+            <label htmlFor="product" className="form-label">
+              Product
+            </label>
+            <select
+              className="form-select"
+              id="product"
+              required
+              value={productId}
+              onChange={handleProductChange}
+            >
+              {products.map((product) => (
+                <option key={product.product_id} value={product.product_id}>
+                  {product.name}
+                </option>
+              ))}
+            </select>
+            <div className="invalid-feedback">
+              Please select a valid Product.
+            </div>
+          </div>
 
-      <div className="col-12 mb-3">
-        <label htmlFor="description" className="form-label">
-          Description
-        </label>
-        <textarea
-          className="form-control"
-          id="description"
-          placeholder="Brief Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-        <div className="invalid-feedback">Please enter your product description.</div>
-      </div>
+          <div className="input-group mb-3">
+            <label className="input-group-text" htmlFor="mainImage">
+              Main Image
+            </label>
+            <input
+              type="file"
+              className="form-control"
+              id="mainImage"
+              accept="image/*"
+              ref={mainImageRef}
+            />
+          </div>
+          <div className="input-group mb-3">
+            <label className="input-group-text" htmlFor="secondImage">
+              Second Image
+            </label>
+            <input
+              type="file"
+              className="form-control"
+              id="secondImage"
+              accept="image/*"
+              ref={secondImageRef}
+            />
+          </div>
+          <div className="input-group mb-3">
+            <label className="input-group-text" htmlFor="thirdImage">
+              Third Image
+            </label>
+            <input
+              type="file"
+              className="form-control"
+              id="thirdImage"
+              accept="image/*"
+              ref={thirdImageRef}
+            />
+          </div>
+          <div className="input-group mb-3">
+            <label className="input-group-text" htmlFor="fourthImage">
+              Fourth Image
+            </label>
+            <input
+              type="file"
+              className="form-control"
+              id="fourthImage"
+              accept="image/*"
+              ref={fourthImageRef}
+            />
+          </div>
 
-      <div className="col-12 mb-3">
-        <label htmlFor="ramMemory" className="form-label">
-          Ram Memory (GB)
-        </label>
-        <input
-          type="number"
-          className="form-control"
-          id="ramMemory"
-          min="0"
-          value={ramMemory}
-          onChange={(e) => setRamMemory(e.target.value)}
-          required
-        />
-        <div className="invalid-feedback">Please enter your product RAM.</div>
+          <button className="btn btn-primary mt-3 d-block mx-auto">
+            Add Images
+          </button>
+        </form>
       </div>
-
-      <div className="col-12 mb-3">
-        <label htmlFor="cpu" className="form-label">
-          CPU (GHz)
-        </label>
-        <input
-          type="number"
-          className="form-control"
-          id="cpu"
-          min="0"
-          value={cpu}
-          onChange={(e) => setCpu(e.target.value)}
-          required
-        />
-        <div className="invalid-feedback">Please enter your product CPU.</div>
-      </div>
-
-      <div className="col-12 mb-3">
-        <label htmlFor="diskMemory" className="form-label">
-          Disk Memory (GB)
-        </label>
-        <input
-          type="number"
-          className="form-control"
-          id="diskMemory"
-          min="0"
-          value={diskMemory}
-          onChange={(e) => setDiskMemory(e.target.value)}
-          required
-        />
-        <div className="invalid-feedback">Please enter your product disk memory.</div>
-      </div>
-
-      <div className="col-12 mb-3">
-        <label htmlFor="stock" className="form-label">
-          Stock
-        </label>
-        <input
-          type="number"
-          className="form-control"
-          id="stock"
-          min="0"
-          value={stock}
-          onChange={(e) => setStock(e.target.value)}
-          required
-        />
-        <div className="invalid-feedback">Please enter your product stock.</div>
-      </div>
-
-      <div className="col-md-5 mb-3">
-        <label htmlFor="category" className="form-label">
-          Category
-        </label>
-        <select
-          className="form-select"
-          id="category"
-          required
-          value={categoryId}
-          onChange={handleCategoryChange}
-        >
-          {categories.map((category) => (
-            <option key={category.category_id} value={category.category_id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-        <div className="invalid-feedback">Please select a valid category.</div>
-      </div>
-
-      <button type="submit" className="btn btn-primary mt-3 d-block mx-auto">Add Product</button>
-    </form>
-  </div>
-
-  <h3>Add Images</h3>
-  <div className="mb-4">
-    <form onSubmit={handleImageSubmit}>
-      <div className="col-md-5 mb-3">
-        <label htmlFor="product" className="form-label">
-          Product
-        </label>
-        <select
-          className="form-select"
-          id="product"
-          required
-          value={productId}
-          onChange={handleProductChange}
-        >
-          {products.map((product) => (
-            <option key={product.product_id} value={product.product_id}>
-              {product.name}
-            </option>
-          ))}
-        </select>
-        <div className="invalid-feedback">Please select a valid Product.</div>
-      </div>
-      
-      <div className="input-group mb-3">
-        <label className="input-group-text" htmlFor="mainImage">
-          Main Image
-        </label>
-        <input
-          type="file"
-          className="form-control"
-          id="mainImage"
-          accept="image/*"  
-          ref={mainImageRef}
-        />
-      </div>
-      <div className="input-group mb-3">
-        <label className="input-group-text" htmlFor="secondImage">
-          Second Image
-        </label>
-        <input
-          type="file"
-          className="form-control"
-          id="secondImage"
-          accept="image/*"  
-          ref={secondImageRef}
-        />
-      </div>
-      <div className="input-group mb-3">
-        <label className="input-group-text" htmlFor="thirdImage">
-          Third Image
-        </label>
-        <input
-          type="file"
-          className="form-control"
-          id="thirdImage"
-          accept="image/*"  
-          ref={thirdImageRef}
-        />
-      </div>
-      <div className="input-group mb-3">
-        <label className="input-group-text" htmlFor="fourthImage">
-          Fourth Image
-        </label>
-        <input
-          type="file"
-          className="form-control"
-          id="fourthImage"
-          accept="image/*"  
-          ref={fourthImageRef}
-        />
-      </div>
-
-      <button className="btn btn-primary mt-3 d-block mx-auto">Add Images</button>
-    </form>
-  </div>
-</div>
-
+    </div>
   );
 }
