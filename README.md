@@ -214,7 +214,7 @@ USE kaacuna_devices_db;
 Ejecuta el siguiente comando para crear un usuario `admin` con el rol de administrador (`is_admin = TRUE`):
 ```bash
 INSERT INTO users (user_id, email, password, username, is_admin, is_active)
-VALUES (UUID(), 'admin@example.com', '123456', 'admin', TRUE, TRUE);
+VALUES (UUID(), 'admin@example.com', 'hash_password', 'admin', TRUE, TRUE);
 ```
 ## 6. Verifica la Creación del Usuario
 Para asegurarte de que el usuario se ha creado correctamente, puedes ejecutar una consulta para ver los detalles:
