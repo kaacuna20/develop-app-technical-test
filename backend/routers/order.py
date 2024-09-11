@@ -38,8 +38,8 @@ async def get_order(request: Request, db: db_dependency, user: user_dependency):
         buy_cart = []
         for id, quantity in cart.items():
             product = db.query(Product, Image).join(Image).filter(Product.product_id == int(id)).first()
-            buy_cart.append(
-       {   "product_id": product[0].product_id,
+            buy_cart.append({   
+                        "product_id": product[0].product_id,
                         "name": product[0].name,
                         "brand": product[0].brand,
                         "price": float(product[0].price),

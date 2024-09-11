@@ -1,6 +1,6 @@
 import axios from "axios";
 import { apiClient, setAuthToken } from "./Client";
-import { getCsrftoken } from "./CsrfToken";
+
 
 // Function to get the current user
 export const getCurrentAdmin = async () => {
@@ -82,17 +82,15 @@ export const getOrderProducts = async (orderId = null, productId = null) => {
 
 export const createCategory = async (category) => {
   setAuthToken();
+
   try {
-    const csrfToken = await getCsrftoken();
     const response = await apiClient.post(
       `admin/create-category/?category=${category}`,
       {
         withCredentials: true,
-        headers: {
-          "csrf-token": csrfToken,
-        },
       }
     );
+
     return response.data;
   } catch (error) {
     console.error(
@@ -106,12 +104,8 @@ export const createCategory = async (category) => {
 export const createProductItem = async (product) => {
   setAuthToken();
   try {
-    const csrfToken = await getCsrftoken();
     const response = await apiClient.post("admin/create-product/", product, {
       withCredentials: true,
-      headers: {
-        "csrf-token": csrfToken,
-      },
     });
     return response.data;
   } catch (error) {
@@ -128,7 +122,6 @@ export const uploadImages = async (productId, images) => {
 
   try {
     const formData = new FormData();
-    const csrfToken = await getCsrftoken();
 
     formData.append("main_image_url", images.mainImage);
     formData.append("second_image_url", images.secondImage);
@@ -143,7 +136,6 @@ export const uploadImages = async (productId, images) => {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
-          "csrf-token": csrfToken,
         },
       }
     );
@@ -161,14 +153,10 @@ export const uploadImages = async (productId, images) => {
 export const updateCategory = async (categoryId, newCategory) => {
   setAuthToken();
   try {
-    const csrfToken = await getCsrftoken();
     const response = await apiClient.put(
       `admin/update-category/${categoryId}?new_name=${newCategory}`,
       {
         withCredentials: true,
-        headers: {
-          "csrf-token": csrfToken,
-        },
       }
     );
     return response.data;
@@ -184,15 +172,11 @@ export const updateCategory = async (categoryId, newCategory) => {
 export const updateProduct = async (productId, updateProduct) => {
   setAuthToken();
   try {
-    const csrfToken = await getCsrftoken();
     const response = await apiClient.put(
       `admin/update-products-items/${productId}/`,
       updateProduct,
       {
         withCredentials: true,
-        headers: {
-          "csrf-token": csrfToken,
-        },
       }
     );
     return response.data;
@@ -208,14 +192,10 @@ export const updateProduct = async (productId, updateProduct) => {
 export const deleteCategory = async (categoryId) => {
   setAuthToken();
   try {
-    const csrfToken = await getCsrftoken();
     const response = await apiClient.delete(
       `admin/delete-category/${categoryId}/`,
       {
         withCredentials: true,
-        headers: {
-          "csrf-token": csrfToken,
-        },
       }
     );
     return response.data;
@@ -231,14 +211,10 @@ export const deleteCategory = async (categoryId) => {
 export const updateUserState = async (userId, newState) => {
   setAuthToken();
   try {
-    const csrfToken = await getCsrftoken();
     const response = await apiClient.put(
       `admin/update-state-user/${userId}/?new_state=${newState}`,
       {
         withCredentials: true,
-        headers: {
-          "csrf-token": csrfToken,
-        },
       }
     );
     return response.data;

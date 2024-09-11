@@ -1,5 +1,5 @@
 import { apiClient, setAuthToken } from "./Client";
-import { getCsrftoken } from "./CsrfToken";
+
 
 export const getCheckOut = async () => {
   setAuthToken(); // Configurar el token en los encabezados
@@ -19,12 +19,10 @@ export const createOrder = async (orderForm) => {
   setAuthToken();
 
   try {
-    const csrfToken = await getCsrftoken();
+
     const response = await apiClient.post("order/", orderForm, {
       withCredentials: true,
-      headers: {
-        "csrf-token": csrfToken,
-      },
+
     });
     return response.data;
   } catch (error) {

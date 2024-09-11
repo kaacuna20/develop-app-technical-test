@@ -8,6 +8,7 @@ export const getCsrftoken = async () => {
       withCredentials: true,
     });
     const csrfToken = response.data.csrf_token;
+    console.log("crsf-token", csrfToken)
     return csrfToken;
   } catch (error) {
     // Error response from server

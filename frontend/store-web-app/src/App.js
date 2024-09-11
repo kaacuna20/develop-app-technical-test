@@ -13,7 +13,6 @@ import Profile from "./pages/public/Profile";
 import HistoryOrder from "./pages/public/HistoryOrderUser";
 import CheckOut from "./pages/public/CheckOut";
 import Order from "./pages/public/OrderPage";
-
 import AdminLayout from "./layouts/AdminLayout";
 import AdminRoute from "./components/AdminRoute";
 import AdminPannel from "./pages/admin/AdminPannel";

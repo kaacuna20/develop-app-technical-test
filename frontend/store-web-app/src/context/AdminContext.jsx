@@ -28,7 +28,7 @@ export const AdminProvider = ({ children }) => {
 
   const login = (userAdminData) => {
     setAdmin(userAdminData); // Cambiado de setUser a setAdmin
-    localStorage.setItem("token", userAdminData.token); // Guarda el token en localStorage
+
   };
 
   const logout = () => {

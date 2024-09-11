@@ -30,7 +30,7 @@ class UpdateOrderRequest(BaseModel):
 @router.get("/home/", status_code=status.HTTP_200_OK)
 async def offert_products(db: db_dependency):
     try:
-        categories = db.query(Category).all()
+        categories = db.query(Category).join(Product).all()
         result = []
         for category in categories:
           # Get products with their corresponding image using join
